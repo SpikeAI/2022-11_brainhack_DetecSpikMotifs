@@ -22,8 +22,8 @@ import matplotlib.pyplot as plt
 import matplotlib
 subplotpars = matplotlib.figure.SubplotParams(left=0.125, right=.95, bottom=0.25, top=.975, wspace=0.05, hspace=0.05,)
 
-figpath = None
 figpath = '../../2022-11-23_THC-CoSyNe_637e00e2c76207e2838c427d'
+figpath = None
 
 def printfig(fig, name, ext='pdf', figpath=figpath, dpi_exp=None, bbox='tight'):
     fig.savefig(os.path.join(figpath, name + '.' + ext), dpi = dpi_exp, bbox_inches=bbox, transparent=True)
