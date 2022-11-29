@@ -325,7 +325,7 @@ def norm(X):
 
 import neo
 
-def make_spiketrains_motif(nb_syn, noise_density, simtime, T, t_true, theta=0, function='cosinus', discard_spikes = None, seed=None):
+def make_spiketrains_motif(nb_syn, noise_density, simtime, T, t_true, theta=0, function='cosinus', discard_spikes = None, sd_temp_jitter=None, seed=None):
     
     np.random.seed(seed)
     # draw random gaussian noise spike timings -> shape (nb_syn, nb_ev_noise)
@@ -339,8 +339,10 @@ def make_spiketrains_motif(nb_syn, noise_density, simtime, T, t_true, theta=0, f
     for t_true_ in t_true:
         adress_pattern = np.arange(nb_syn)
         time_pattern = function(nb_syn, T, theta) + t_true_ #.astype(int)
+        if sd_temp_jitter:
+            time_pattern += np.random.normal(loc=0, scale=sd_temp_jitter, size=time_pattern.shape)
         if discard_spikes:
-            indices = np.arange(0,discard_spikes)
+            indices = np.random.randint(nb_syn,size=discard_spikes)
             adress_pattern = np.delete(adress_pattern, indices)
             time_pattern = np.delete(time_pattern, indices)
         # make address event representation
