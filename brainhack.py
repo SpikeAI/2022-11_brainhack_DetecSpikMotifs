@@ -309,3 +309,67 @@ class ABCD:
         ax.set_xlabel('value of b_hat')
         ax.set_yscale('log')
         return fig, ax
+
+
+def vonmises(N_inputs, A, theta, k=2):
+    return A*norm(np.exp(k*np.cos(2*np.pi*(np.linspace(0, 1, N_inputs)-theta))))
+
+def cospattern(N_inputs, A, theta, k=4):
+    return A*norm(np.cos(k*np.pi*(np.linspace(0, 1, N_inputs)-theta)))
+
+def linear(N_inputs, A, theta):
+    return np.linspace(0, A, N_inputs)
+
+def norm(X):
+    return (X-X.min())/(X.max()-X.min())
+
+import neo
+
+def make_spiketrains_motif(nb_syn, noise_density, simtime, T, t_true, theta=0, function='cosinus', discard_spikes = None, seed=None):
+    
+    np.random.seed(seed)
+    # draw random gaussian noise spike timings -> shape (nb_syn, nb_ev_noise)
+    N_noise = int(noise_density*simtime*nb_syn)
+    adress_noise = np.random.randint(0, nb_syn, N_noise)
+    time_noise = np.random.rand(N_noise)*simtime
+
+    all_timestamps = time_noise
+    all_addresses = adress_noise
+    # draw stimulus -> stim
+    for t_true_ in t_true:
+        adress_pattern = np.arange(nb_syn)
+        time_pattern = function(nb_syn, T, theta) + t_true_ #.astype(int)
+        if discard_spikes:
+            indices = np.arange(0,discard_spikes)
+            adress_pattern = np.delete(adress_pattern, indices)
+            time_pattern = np.delete(time_pattern, indices)
+        # make address event representation
+        all_timestamps = np.hstack((all_timestamps, time_pattern))
+        all_addresses = np.hstack((all_addresses, adress_pattern))
+        
+    sorted_timestamps = np.argsort(all_timestamps)
+    aer = (all_addresses[sorted_timestamps], all_timestamps[sorted_timestamps])
+    
+    spike_trains = []
+    for add in range(nb_syn):
+        spike_times = all_timestamps[all_addresses==add]
+        spike_trains.append(neo.SpikeTrain(spike_times, units='ms', t_stop=simtime))
+    #st = neo.SpikeTrain([3, 4, 5], units='sec', t_stop=10.0)
+
+    return spike_trains
+
+def plot_input(aer_noise, aer_pattern):
+    adress_noise, time_noise = aer_noise
+    adress_pattern, time_pattern = aer_pattern
+    fig, ax = plt.subplots(figsize = (4, 4))
+    pattern = ax.scatter(time_pattern, adress_pattern, marker='|', color='blue', alpha = 1, label = 'pattern');
+    noise = ax.scatter(time_noise, adress_noise, marker='|', color='grey', alpha = .6, label = 'noise')
+    #ax.legend()
+    ax.set_xlabel('time (ms)')
+    ax.set_ylabel('neuron adress')
+    ax.set_title('neural activity')
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
+    return fig, ax
