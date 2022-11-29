@@ -1,0 +1,14 @@
+
+numpy
+matplotlib
+seaborn
+pandas
+imageio
+nltk
+notebook
+scikit-learn
+torch
+torchvision
+elephant
+viziphant
+
