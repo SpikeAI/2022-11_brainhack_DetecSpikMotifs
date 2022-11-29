@@ -1,7 +1,113 @@
 # 2022-11_brainhack_DetecSpikMotifs: Automatic detection of spiking motifs in neurobiological data
 
+> TL;DR This project aims to develop a method for the automated detection of repeating spiking motifs, possibly noisy, in ongoing activity.
+
 * [Mattermost channel](https://mattermost.brainhack.org/brainhack/channels/bhg22-marseille-detecspikmotifs)
 
+## Description
+### Leaders
+
+- [Matthieu Gilson](https://matthieugilson.eu) - https://github.com/MatthieuGilson
+- [Laurent Perrinet](https://laurentperrinet.github.io) - https://github.com/LaurentPerrinet
+
+### Collaborators
+
+* Hugo Ladret
+* George Abitbol
+
+### Brainhack Global 2022 Event
+
+Brainhack Marseille
+
+### Project Description
+
+The study of spatio-temporal correlated activity patterns is very active in several fields related to neuroscience, like machine learning in vision [(Muller Nat Rev Neurosci 2018)](https://pubmed.ncbi.nlm.nih.gov/29563572/) and neuronal representations and processing [(Shahidi Nat Neurosci 2019)](https://pubmed.ncbi.nlm.nih.gov/31110324/). **This project aims to develop a method for the automated detection of repeating spiking motifs, possibly noisy, in ongoing activity.** A diversity of formalizations and detection methods have been proposed and we will focus on several example measures for event/spike trains, to be compared on both synthetic and real data. 
+
+An implementation could be based on autodifferentiable networks as implemented in Python libraries like pytorch. This framework allows for the tuning of parameters with specific architectures like convolutional layers that can capture various timescales in spike patterns (e.g. latencies) in an automated fashion. Another recent tool based on the estimation of firing probability for a range of latencies has been proposed [(Grimaldi ICIP 2022)](https://laurentperrinet.github.io/publication/grimaldi-22-bc/grimaldi-22-bc.pdf). This will be compared with existing approaches like Elephant’s [SPADE](https://elephant.readthedocs.io/en/latest/reference/spade.html) or decoding techniques based on computed statistics computed on smoothed spike trains (adapted from time series processing, see [(Lawrie, biorxiv](https://doi.org/10.1101/2021.04.30.441789)).
+
+One part concerns the generation of realistic synthetic data producing spike trains  which include spiking motifs with specific latencies or comodulation of firing rate. The goal is to test how these different structures, which rely on specific assumptions about e.g. stationarity or independent firing probability across time, can be captured by different detection methods. 
+
+**Bring you real data to analyze them!** We will also provide data from electrophysiology.
+
+
+### Link to project repository/sources
+
+- [**Github repo**](https://github.com/SpikeAI/2022-11_brainhack_DetecSpikMotifs)
+
+- review on [Precise spiking motifs in neurobiological and neuromorphic data](https://laurentperrinet.github.io/publication/grimaldi-22-polychronies/grimaldi-22-polychronies.pdf)
+- [Grimaldi](https://laurentperrinet.github.io/author/antoine-grimaldi/), Besnainou, Ladret, Perrinet (2022). [Learning heterogeneous delays of spiking neurons for motion detection](https://laurentperrinet.github.io/publication/grimaldi-22-icip/). Proceedings of ICIP 2022. https://laurentperrinet.github.io/publication/grimaldi-22-bc/grimaldi-22-bc.pdf
+- [Polychronies](https://laurentperrinet.github.io/grant/polychronies/) grant
+
+### Goals for Brainhack Global
+
+- Code to generate various models of synthetic data (time series of spikes/events) with embedded patterns
+- Knowledge in signal processing & high-order statistics (correlation)
+- Tool for quantitative comparison of detection methods for correlated patterns 
+
+
+### Good first issues
+
+1. issue one: generate synthetic model for raster plots
+
+2. issue two: design detection method knowing these motifs
+
+3. issue three: supervised learning
+
+4. issue four: unsupervised learning
+
+
+### Communication channels
+
+https://mattermost.brainhack.org/brainhack/channels/bhg22-marseille-detecspikmotifs
+
+### Skills
+
+- Interest in analyzing spiking activity: 100%
+- Programming Python (numpy, scikit-learn, pytorch): 70%
+- Data (spike trains, event time series): 50%
+- Sharing concepts and ideas (supervised/unsupervised learning, stochastic processes): 40%
+
+
+### What will participants learn?
+
+- electro-physiology, spiking activity
+- correlation/synchrony measures
+- high-order statistics
+- supervised/unsupervised learning
+- stochastic processes
+
+### Image
+
+<img width="557" alt="image" src="https://user-images.githubusercontent.com/381808/202470026-cfb5ff2d-9310-4506-9350-fd61953a6e8d.png">
+
+### Topic
+
+bayesian_approaches, deep_learning, information_theory, machine_learning, neural_decoding, neural_networks, statistical_modelling
+
+### Tools
+
+Jupyter
+
+### Programming language
+
+Python
+
+### Modalities
+
+other
+
+### Git skills
+
+1_commit_push
+
+### Anything else?
+
+Come to us!
+
+### Things to do after the project is submitted and ready to review.
+
+- [x] Add a comment below the main post of your issue saying: `Hi @brainhackorg/project-monitors my project is ready!`
+- [x] Mastodon~~Twitter~~-sized summary of your project pitch.: "This project aims to develop a method for the automated detection of repeating spiking motifs, possibly noisy, in ongoing activity."
 
 ## installation
 
@@ -18,7 +124,6 @@ pip install -U -r requirements.txt
 ```
 
 ## results
-
 
 
 ## Contributors: Special thanks for all the people who had helped this project so far:
@@ -43,5 +148,3 @@ We're currently looking for contributions for the following:
 - [ ] Bug fixes
 - [ ] Translations
 - [ ] etc...
-
-For more information, please refer to our [CONTRIBUTING](CONTRIBUTING.md) guide.
