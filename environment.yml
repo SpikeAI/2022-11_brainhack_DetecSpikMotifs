@@ -21,6 +21,7 @@ dependencies:
   - pytorch
   - torchvision
   - quantities
+  - pyfim
   # - ipykernel
   # - jupyter
   # - nbconvert
