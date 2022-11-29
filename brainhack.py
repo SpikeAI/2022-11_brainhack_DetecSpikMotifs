@@ -37,7 +37,7 @@ class Params:
     N_pre: int = 144 # number of presynaptic inputs
     N_PG_time: int = 71 # number of timesteps in PG, must be a odd number for convolutions
     N_PGs: int = 35 # number of polychronous groups
-    E_PG: float = 4. # excitability range of PGs
+    E_PG: float = 10. # excitability range of PGs
     p_PG: float = .005 # ratio of non-zero coefficients in PGs
     tau_decay: float = .4 # time constant for the decay of the PG enveloppe
     tau_rise: float = .05 # time constant for the rise of the PG enveloppe
