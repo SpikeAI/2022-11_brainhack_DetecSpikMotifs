@@ -4,10 +4,12 @@
 
 > Here you should include a list of people who helped your project. A good practice would be their names and GH profiles. Other additional info may fit, but names and profiles are mandatory. Proper credits matter.
 
-* [Contributor #1](http://LINK_HERE)
-* [Contributor #2](http://LINK_HERE)
+* [Aurore SB](https://github.com/AuroreSB)
+* [Laurie Mifsud](https://github.com/Laurie-Mifsud)
+* [Maria Fratello](https://github.com/mariafratello)
+* [Matt Gilson](https://github.com/MatthieuGilson)
+* [Antoine Grimaldi](https://github.com/AntoineGrimaldi)
 * [Laurent Perrinet](https://laurentperrinet.github.io)
-* so on...
 
 > If you think you can do it better, you can consider using [all-contributors](https://github.com/kentcdodds/all-contributors/) guidelines. This project itself uses it on the README file. You really should consider using them.
 
