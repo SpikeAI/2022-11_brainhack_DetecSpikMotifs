@@ -70,6 +70,8 @@ The window length has been put to the length of the motif.
 
 ![](./figures/rastor_plot_spade_pattern_diag_motif.PNG)
 
+### Test of SPADE on another generative model with rate modulation
+
 More noise in the patterns with rate modulation. 10 neurons involved in the pattern (#0 to #10), with Poisson sampling leading to various number of spikes at each pattern presentation (sometimes none).
 Tuning SPADE appears difficult:
 - short window of 5ms = many misses
