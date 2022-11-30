@@ -30,9 +30,9 @@ One part concerns the generation of realistic synthetic data producing spike tra
 **Bring you real data to analyze them!** We will also provide data from electrophysiology.
 
 
-## results
+## Results
 
-### learning about SPADE
+### Learning about SPADE
 
 From [2022-11-28_SPADE_tutorial.ipynb](2022-11-28_SPADE_tutorial.ipynb), we learned to use SPADE.
 
@@ -57,13 +57,17 @@ However, SPADE can **not** detect easily more complex polychronous pattern like:
 ### Test of SPADE on those motifs
 We can test the pattern detection of SPADE with one of those particular motifs for which the   
 neuron don't have a synchronous activity. 
-We have added little noises as you can see below.
+We have added little noises as you can see below.   
+
 ![](./figures/rastor_plot_spade_spike_diag_motif.PNG)
 
 By changing the window length of detection we can retrieve those motifs but    
 the algorithm with the parameters we used, is just searching for synchronous activity   
 Hence he considered that the motifs is synchronous, the red points that represents the detections   
-are aligned.
+are aligned.   
+
+The window length has been put to the length of the motif.
+
 ![](./figures/rastor_plot_spade_pattern_diag_motif.PNG)
 
 
