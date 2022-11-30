@@ -71,6 +71,11 @@ The window length has been put to the length of the motif.
 ![](./figures/rastor_plot_spade_pattern_diag_motif.PNG)
 
 
+### SPADE applied to Allen institute data
+We finally applied SPADE to real data, in this case mouse data from the Allen Institute (see issue 8). The following figure corresponds to 14 stimuli presentations concatenated over time. SPADE finds a lot of patterns, but the detected patterns seem unstable over stimuli repetitions...
+![](./figures/res_Allen.png)
+
+
 ### more motifs...
 
 In the future, one goal is to understand a raster plot:
