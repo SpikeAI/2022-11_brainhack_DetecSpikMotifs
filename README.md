@@ -32,9 +32,21 @@ One part concerns the generation of realistic synthetic data producing spike tra
 
 ## results
 
+### learning about SPADE
+
+From [2022-11-28_SPADE_tutorial.ipynb](2022-11-28_SPADE_tutorial.ipynb), we learned to use SPADE.
+
 A synthetic raster where we wish to detect synchronous patterns:
 
+![](./figures/raster_plot_for_spade_permute.png)
+
+The same data with the synchronous data in the bottom:
+
 ![](./figures/raster_plot_for_spade.png)
+
+SPADE achieves to detect those synchronous pattern:
+
+![](./figures/raster_plot_with_spade_patterns.png)
 
 
 ## practical informations
