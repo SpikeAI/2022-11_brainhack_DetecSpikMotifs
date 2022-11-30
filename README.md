@@ -217,6 +217,7 @@ pip install -U -r requirements.txt
 * [Antoine Grimaldi](https://github.com/AntoineGrimaldi)
 * [Laurent Perrinet](https://laurentperrinet.github.io)
 * [Sophie](https://Audrey-Sophie.github.io)
+* Konstatina Mylonaki
 
 > If you think you can do it better, you can consider using [all-contributors](https://github.com/kentcdodds/all-contributors/) guidelines. This project itself uses it on the README file. You really should consider using them.
 
