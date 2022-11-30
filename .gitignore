@@ -26,6 +26,10 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+Pipfile
+Pipfile.lock
+aurore_spade_tutorial.py
+requirements.txt
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
