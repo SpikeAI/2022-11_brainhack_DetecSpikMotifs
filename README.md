@@ -79,7 +79,7 @@ such one could infer to which motifs the different spikes belong to:
 
 ### Generate synthetic spiking motifs
 
-![](./figures/synthetic_patterns.pdf.png)
+![](./figures/synthetic_patterns.png)
 
 ## practical informations
 
