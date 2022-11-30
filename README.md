@@ -79,6 +79,9 @@ such one could infer to which motifs the different spikes belong to:
 
 (see [2022-11-28_Generative-model-motifs.ipynb](2022-11-28_Generative-model-motifs.ipynb) and [2022-11-28_Generative-model_figure.ipynb](2022-11-28_Generative-model_figure.ipynb))
 
+### SPADE applied to Allen institute data
+We finally applied SPADE to real data, in this case mouse data from the Allen Institute (see issue 8). The following figure corresponds to 14 stimuli presentations concatenated over time. SPADE finds a lot of patterns, but the detected patterns seem unstable over stimuli repetitions...
+
 
 ## practical informations
 
