@@ -48,6 +48,9 @@ SPADE achieves to detect those synchronous pattern:
 
 ![](./figures/raster_plot_with_spade_patterns.png)
 
+### Generate synthetic spiking motifs
+
+![](./figures/synthetic_patterns.pdf.png)
 
 ## practical informations
 
