@@ -85,20 +85,36 @@ def eval_spade(pattern, common_spikes):
     precision = tp / (tp+fp)
     recall = tp / (tp+fn)
 
-    fscore = 2*precision*recall / (precision + recall)
+    precision=0
+    recall=0
+    fscore=0
+    if (tp+fp):
+        precision = tp / (tp+fp)
+    if (tp+fn):
+        recall = tp / (tp+fn)
+    if (precision+recall):
+        fscore = 2*precision*recall / (precision + recall)
 
     return [precision, recall, fscore]
 
 # %%
-if __name__ == '__main__' : 
-    A_sync = 0.001
-    spiketrains = generate_spike(A_sync=A_sync, shift=shift)
+if __name__ == '__main__' :
+    A_sync = np.logspace(-5,-2,10)
+    list_pr = []
+    list_rc = []
+    list_f = []
+    for k in A_sync:
+    
+        spiketrains = generate_spike(A_sync=k, shift=shift)
 
-    common_spikes = ground_truth_spike_synchronous(spiketrains)
+        common_spikes = ground_truth_spike_synchronous(spiketrains)
 
-    pattern = add_noise_test(spiketrains)
+        pattern = add_noise_test(spiketrains)
 
-    [precision, recall, fscore] = eval_spade(pattern, common_spikes)
-    print(len(spiketrains))
+        [precision, recall, fscore] = eval_spade(pattern, common_spikes)
+        print(len(spiketrains))
+        list_pr.append(precision)
+        list_rc.append(recall)
+        list_f.append(fscore)
 
 # %%

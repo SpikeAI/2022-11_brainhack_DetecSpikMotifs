@@ -41,4 +41,7 @@ viziphant.patterns.plot_patterns(spike_trains, patterns)
 
 # %%
 [precision, recall, fscore] = eval_spade(patterns, t_true)
+print(precision)
+print(recall)
+print(fscore)
 # %%
