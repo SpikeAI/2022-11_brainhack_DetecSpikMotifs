@@ -48,6 +48,34 @@ SPADE achieves to detect those synchronous pattern:
 
 ![](./figures/raster_plot_with_spade_patterns.png)
 
+However, SPADE can **not** detect easily more complex polychronous pattern:
+
+![](./figures/raster_plot_linearpattern.png)
+
+SPADE achieves to detect those synchronous pattern:
+
+![](./figures/raster_plot_with_spade_patterns.png)
+
+
+### more motifs...
+
+In the future, one goal is to understand a raster plot:
+
+![](./figures/figure_motif_before.png)
+
+as a combination of different motifs 
+
+![](./figures/figure_motifs.png)
+
+which are defined by a raster plot of motifs:
+
+![](./figures/figure_raster_motifs.png)
+
+such one could infer to which motifs the different spikes belong to:
+
+![](./figures/figure_motif_after.png)
+
+(see [2022-11-28_Generative-model-motifs.ipynb](2022-11-28_Generative-model-motifs.ipynb) and [2022-11-28_Generative-model_figure.ipynb](2022-11-28_Generative-model_figure.ipynb))
 
 ## practical informations
 
