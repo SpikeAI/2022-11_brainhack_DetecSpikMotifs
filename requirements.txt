@@ -1,14 +1,16 @@
-
+pip
 numpy
 matplotlib
 seaborn
 pandas
 imageio
-nltk
 notebook
 scikit-learn
-torch
-torchvision
+# torch
+# torchvision
+quantities
+neo
+pyfim
 elephant
 viziphant
 

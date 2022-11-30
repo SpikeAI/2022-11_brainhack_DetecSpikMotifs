@@ -18,7 +18,7 @@ def generate_spike(A_sync=A_sync, shift=shift):
     # OUTPUT : spike trains 
     A = [0]+[1.-A_sync]+[0]*8+[A_sync]
     spiketrains = elephant.spike_train_generation.compound_poisson_process(
-                             rate=5*pq.Hz, A=A, shift=shift*pq.s, t_stop=10*pq.s)
+                             rate=5*pq.Hz, A=A, shift=shift*pq.ms, t_stop=10*pq.s)
     return spiketrains
 
 def add_noise_test(spiketrains):
