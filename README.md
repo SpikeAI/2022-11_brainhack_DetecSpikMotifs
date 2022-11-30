@@ -52,10 +52,6 @@ SPADE achieves to detect those synchronous pattern:
 
 However, SPADE can **not** detect easily more complex polychronous pattern like:
 
-![](./figures/raster_plot_linearpattern.png)
-
-or 
-
 ![](./figures/synthetic_patterns.png)
 
 ### Test of SPADE on those motifs
