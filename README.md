@@ -48,14 +48,16 @@ SPADE achieves to detect those synchronous pattern:
 
 ![](./figures/raster_plot_with_spade_patterns.png)
 
-However, SPADE can **not** detect easily more complex polychronous pattern:
+
+### Generate synthetic spiking motifs
+
+However, SPADE can **not** detect easily more complex polychronous pattern like:
 
 ![](./figures/raster_plot_linearpattern.png)
 
-SPADE achieves to detect those synchronous pattern:
+or 
 
-![](./figures/raster_plot_with_spade_patterns.png)
-
+![](./figures/synthetic_patterns.png)
 
 ### more motifs...
 
@@ -77,9 +79,6 @@ such one could infer to which motifs the different spikes belong to:
 
 (see [2022-11-28_Generative-model-motifs.ipynb](2022-11-28_Generative-model-motifs.ipynb) and [2022-11-28_Generative-model_figure.ipynb](2022-11-28_Generative-model_figure.ipynb))
 
-### Generate synthetic spiking motifs
-
-![](./figures/synthetic_patterns.png)
 
 ## practical informations
 
