@@ -30,6 +30,15 @@ One part concerns the generation of realistic synthetic data producing spike tra
 **Bring you real data to analyze them!** We will also provide data from electrophysiology.
 
 
+## results
+
+A synthetic raster where we wish to detect synchronous patterns:
+
+![](./figures/raster_plot_for_spade.png)
+
+
+## practical informations
+
 ### Link to project repository/sources
 
 - [**Github repo**](https://github.com/SpikeAI/2022-11_brainhack_DetecSpikMotifs)
@@ -122,9 +131,6 @@ conda env create --file environment.yml
 ```
 pip install -U -r requirements.txt
 ```
-
-## results
-
 
 
 ## Contributors: Special thanks for all the people who had helped this project so far:
