@@ -50,7 +50,7 @@ SPADE achieves to detect those synchronous pattern:
 
 ### Generate synthetic spiking motifs
 
-![](./figures/synthetic_patterns.pdf.png)
+![](./figures/synthetic_patterns.png)
 
 ## practical informations
 
