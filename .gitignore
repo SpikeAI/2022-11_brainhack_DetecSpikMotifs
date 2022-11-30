@@ -30,6 +30,7 @@ Pipfile
 Pipfile.lock
 aurore_spade_tutorial.py
 requirements.txt
+accuracy.py
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
