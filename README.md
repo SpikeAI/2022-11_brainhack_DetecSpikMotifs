@@ -73,11 +73,11 @@ The window length has been put to the length of the motif.
 More noise in the patterns with rate modulation. 10 neurons involved in the pattern (#0 to #10), with Poisson sampling leading to various number of spikes at each pattern presentation (sometimes none).
 Tuning SPADE appears difficult:
 - short window of 5ms = many misses
-![](./figures/detection_rate_modulation_5ms.png)
+![](./figures/detection_rate_modulation_bin5ms.png)
 - large window of 25ms = no selectivity
-![](./figures/detection_rate_modulation_25ms.png)
+![](./figures/detection_rate_modulation_bin25ms.png)
 - two window of 5ms = better; but still misses and false positives
-![](./figures/detection_rate_modulation_5ms_2win.png)
+![](./figures/detection_rate_modulation_bin5ms_2win.png)
 
 
 
