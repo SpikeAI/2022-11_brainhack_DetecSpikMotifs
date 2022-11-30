@@ -48,40 +48,21 @@ SPADE achieves to detect those synchronous pattern:
 
 ![](./figures/raster_plot_with_spade_patterns.png)
 
-
 ### Generate synthetic spiking motifs
 
-However, SPADE can **not** detect easily more complex polychronous pattern like:
+![](./figures/synthetic_patterns.pdf.png)
 
-![](./figures/raster_plot_linearpattern.png)
+### Test of SPADE on those motifs
+We can test the pattern detection of SPADE with one of those particular motifs for which the   
+neuron don't have a synchronous activity. 
+We have added little noises as you can see below.
+![](./figures/rastor_plot_spade_spike_diag_motif.PNG)
 
-or 
-
-![](./figures/synthetic_patterns.png)
-
-### more motifs...
-
-In the future, one goal is to understand a raster plot:
-
-![](./figures/figure_motif_before.png)
-
-as a combination of different motifs 
-
-![](./figures/figure_motifs.png)
-
-which are defined by a raster plot of motifs:
-
-![](./figures/figure_raster_motifs.png)
-
-such one could infer to which motifs the different spikes belong to:
-
-![](./figures/figure_motif_after.png)
-
-(see [2022-11-28_Generative-model-motifs.ipynb](2022-11-28_Generative-model-motifs.ipynb) and [2022-11-28_Generative-model_figure.ipynb](2022-11-28_Generative-model_figure.ipynb))
-
-### SPADE applied to Allen institute data
-We finally applied SPADE to real data, in this case mouse data from the Allen Institute (see issue 8). The following figure corresponds to 14 stimuli presentations concatenated over time. SPADE finds a lot of patterns, but the detected patterns seem unstable over stimuli repetitions...
-
+By changing the window length of detection we can retrieve those motifs but    
+the algorithm with the parameters we used, is just searching for synchronous activity   
+Hence he considered that the motifs is synchronous, the red points that represents the detections   
+are aligned.
+![](./figures/rastor_plot_spade_pattern_diag_motif.PNG)
 
 ## practical informations
 
