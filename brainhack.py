@@ -398,3 +398,202 @@ def plot_input(aer_noise, aer_pattern):
     ax.spines['left'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
     return fig, ax
+
+def gaussian_kernel(x, tau):
+    return np.exp(-x**2/(2*tau**2))
+
+def absolute_kernel(x, tau):
+    return np.exp(-np.abs(x)/tau)
+
+def lif_kernel(x, tau):
+    return np.exp(-x/tau)
+
+def make_input_aer(nb_syn, noise_density, simtime, T, t_true, theta=0, function=cospattern, discard_spikes = None, seed=None):
+    np.random.seed(seed)
+    # draw random gaussian noise spike timings -> shape (nb_syn, nb_ev_noise)
+    N_noise = int(noise_density*simtime*nb_syn)
+    adress_noise = np.random.randint(0, nb_syn, N_noise)
+    time_noise = np.random.rand(N_noise)*simtime
+
+    # draw stimulus -> stim
+    adress_pattern = np.arange(nb_syn)
+    time_pattern = function(nb_syn, T, theta) + t_true #.astype(int)
+    if discard_spikes:
+        #indices = np.random.randint(discard_spikes)
+        indices = np.arange(0,10)
+        adress_pattern = np.delete(adress_pattern, indices)
+        time_pattern = np.delete(time_pattern, indices)
+
+    # make address event representation
+    all_timestamps = np.hstack((time_noise, time_pattern))
+    all_addresses = np.hstack((adress_noise, adress_pattern))
+    sorted_timestamps = np.argsort(all_timestamps)
+    aer = (all_addresses[sorted_timestamps], all_timestamps[sorted_timestamps])
+
+    return (adress_noise, time_noise), (adress_pattern, time_pattern), aer
+
+
+class hsd_neuron(object):
+    """
+    Spiking neuron with heterogeneous delays
+    
+    """
+    def __init__(self, nb_syn, delay_amplitude=100,  
+                 tau=20, V_threshold=1, V_resting=0, gain = 1):
+        self.delays = np.random.rand(nb_syn) * delay_amplitude
+        self.tau = tau # membrane time constant
+        self.V_threshold = V_threshold # membrane potential threshold
+        self.V_resting = V_resting # resting membrane potential
+        self.weights = np.random.rand(nb_syn) #synaptic weights
+        self.weights /= np.sum(self.weights)
+        self.gain = gain
+
+    def code(self, aer):
+        addresses, timestamps = aer
+        delayed_timestamps = timestamps + self.delays[addresses]
+        sorted_indices = np.argsort(delayed_timestamps)
+        sorted_times = delayed_timestamps[sorted_indices]
+        sorted_addresses = addresses[sorted_indices]
+        dts = np.diff(np.hstack((0, sorted_times))) # = time[ev]-time[ev-1]
+        V = np.zeros_like(dts) # computes membrane potential at each event delayed timestamp
+        output_spike = []
+        V[0] = self.V_resting
+        for i, dt in enumerate(dts[1:]):
+            if i==0:
+                V[i] = self.V_resting
+            else:
+                if V[i-1]>=self.V_threshold:
+                    V[i] = self.V_resting
+                    output_spike.append(sorted_times[i])
+                else:
+                    V[i] = np.exp( - dt / self.tau) * V[i-1] + self.gain * self.weights[sorted_addresses[i]] + self.V_resting
+        return V, sorted_times, sorted_addresses, np.float64(output_spike)
+    
+def plot_learning_figure(sorted_times, V, N, t_out, t_true, delay_amplitude, aer_noise, aer_pattern, delay_gradient=None):
+    fig = plt.figure(constrained_layout=True, figsize = (15, 8))
+    axs = fig.subplot_mosaic(
+    """
+    AAAC
+    BBBC
+    """
+    )
+
+    axs['A'].plot(sorted_times, V, color='blue', alpha = .7, label = 'Membrane potential')
+    if V.max() > N.V_threshold: 
+        axs['A'].vlines(sorted_times[V>N.V_threshold], 1, 2.5, color='red', alpha = .3, label = 'Spikes = detection of the pattern') # spike
+        axs['A'].vlines([t_out], 0, 2.5, color='red', alpha = .7, label = 'First spike = earliest detection of the pattern') # spike
+    axs['A'].vlines([t_true], 0, 1, linestyles='dotted', color='purple', label = 'Start of the pattern')
+    axs['A'].vlines([t_true+delay_amplitude], 0, 1, linestyles='dashed', color='purple', lw = 2, label = 'End of the pattern')
+    axs['A'].axvspan( xmin = t_true, xmax = t_true+delay_amplitude, ymin=0, ymax=.4, color = 'purple', alpha = .05, label = 'Pattern duration')
+
+    axs['A'].hlines(N.V_threshold, 0, sorted_times[-1], color = 'orange',linestyles='--', label = 'threshold', linewidth = .9)
+
+    axs['A'].set_xlim(0, sorted_times[-1])
+    axs['A'].set_ylim(0, 2.5)
+
+    axs['A'].legend(loc = 'upper right')
+    axs['A'].set_xlabel('time (ms)')
+    axs['A'].set_ylabel('membrane potential')
+    axs['A'].set_title('Evolution of membrane potential across time, with time of the pattern and its detection')
+    axs['A'].spines['top'].set_visible(False)
+    axs['A'].spines['right'].set_visible(False)
+    axs['A'].spines['left'].set_visible(False)
+    axs['A'].spines['bottom'].set_visible(False)
+    adress_noise, time_noise = aer_noise
+    adress_pattern, time_pattern = aer_pattern
+    i_adress = np.arange(len(N.delays))
+
+    axs['B'].scatter(time_pattern, adress_pattern, marker='|', color='red', label = 'Right pattern');
+    
+    if len(t_out)>0:
+        for t_post in t_out:
+            axs['B'].scatter(t_post - N.delays[:,np.newaxis], i_adress, marker = '|', color = 'orange')
+        axs['B'].scatter(t_post - N.delays[:,np.newaxis], i_adress, marker = '|', color = 'orange', label = 'Learned pattern')
+
+    axs['B'].vlines(t_true, 0, 50, linestyles='dotted', color='purple', label = 'Start of the pattern')
+    axs['B'].vlines(t_true+delay_amplitude, 0, 50, color='purple', linestyles = 'dashed', label = 'End of the pattern')
+    axs['B'].axvspan(t_true, t_true+delay_amplitude, 0, 1, color = 'purple', alpha = .05, label = 'Pattern duration')
+
+    axs['B'].scatter(time_noise, adress_noise, marker='|', color='blue', alpha = .4, label = 'Noise')
+
+    axs['B'].set_xlim(0, sorted_times[-1])
+    axs['B'].legend(loc = 'upper right')
+    axs['B'].set_xlabel('time (ms)')
+    axs['B'].set_ylabel('neuron adress')
+    axs['B'].set_title('Comparison of the right pattern to learn and the learned pattern ')
+    axs['B'].spines['top'].set_visible(False)
+    axs['B'].spines['right'].set_visible(False)
+    axs['B'].spines['left'].set_visible(False)
+    axs['B'].spines['bottom'].set_visible(False)
+
+    axs['C'].eventplot(N.delays[:,np.newaxis], color = 'orange')
+    axs['C'].set_xlabel('time (ms)')
+    axs['C'].set_ylabel('neuron adress')
+    axs['C'].set_title('Representation of the learned delay')
+    if delay_gradient is not None:
+        axs['C'].plot(N.delays+delay_gradient, np.arange(len(N.delays)), '.')
+    axs['C'].spines['top'].set_visible(False)
+    axs['C'].spines['right'].set_visible(False)
+    axs['C'].spines['left'].set_visible(False)
+    axs['C'].spines['bottom'].set_visible(False)
+    plt.show()
+    
+    
+def plot_hsd_response(sorted_times, sorted_addresses, V, N, t_true, t_out, delay_amplitude, aer_noise, aer_pattern, spike_marker_size = 50):
+    fig = plt.figure(constrained_layout=True, figsize = (15, 8))
+    axs = fig.subplot_mosaic(
+    """
+    BBB
+    AAA
+    """
+    )
+    
+    title_size = 20
+    axis_size = 16
+    legend_size = 12
+
+    axs['A'].plot(sorted_times, V, color='blue', alpha = .7, label = 'Membrane potential')
+    if V.max() > N.V_threshold: 
+        axs['A'].vlines(sorted_times[V>N.V_threshold], 1, 2.5, color='red', alpha = 1, label = 'Output spike')
+        
+    axs['A'].hlines(N.V_threshold, 0, sorted_times[-1], color = 'orange',linestyles='--', label = 'Threshold', linewidth = .9)
+    axs['A'].set_xlim(0, sorted_times[-1])
+    axs['A'].set_ylim(0, 1.5)
+
+    axs['A'].legend(loc = 'upper right', fontsize=legend_size)
+    axs['A'].set_xlabel('Time (ms)', fontsize=axis_size)
+    axs['A'].set_ylabel('Membrane potential', fontsize=axis_size)
+    axs['A'].set_title('Evolution of membrane potential across time, with time of the pattern and its detection', fontsize=title_size)
+    axs['A'].spines['top'].set_visible(False)
+    axs['A'].spines['right'].set_visible(False)
+    axs['A'].spines['left'].set_visible(False)
+    axs['A'].spines['bottom'].set_visible(False)
+    adress_noise, time_noise = aer_noise
+    adress_pattern, time_pattern = aer_pattern
+    i_adress = np.arange(len(adress_pattern))
+    
+    axs['B'].vlines(t_true, 0, len(N.delays)-1, linestyles='dotted', color='purple', label = 'Start of the pattern')
+    axs['B'].vlines(t_true+delay_amplitude, 0, len(N.delays)-1, color='purple', linestyles = 'dashed', label = 'End of the pattern')
+    axs['B'].axvspan(t_true, t_true+delay_amplitude, 0, 1, color = 'purple', alpha = .05, label = 'Pattern duration')
+        
+    axs['B'].scatter(time_pattern, adress_pattern, marker='|', s = spike_marker_size, color='red', label = 'Spiking motif');
+
+    for syn in range(len(N.delays)):
+        axs['B'].quiver([time_pattern[syn]], [syn], [N.delays[syn]/delay_amplitude], [0], scale = 10, color='orange', alpha=.1, headwidth = 3, headlength = 4, headaxislength = 3)
+    axs['B'].quiver([time_pattern[syn]], [syn], [N.delays[syn]/delay_amplitude], [0], scale = 10, color='orange', alpha=.1, headwidth = 3, headlength = 4, headaxislength = 3, label = 'Synaptic delays')
+    
+    axs['B'].scatter(time_pattern+N.delays, adress_pattern, marker = '|', s = spike_marker_size, color = 'orange', label = 'Multiplexed motif')
+
+    axs['B'].scatter(time_noise, adress_noise, marker='|', color='blue', s = spike_marker_size, alpha = .4, label = 'Noise')
+
+    axs['B'].set_xlim(0, sorted_times[-1])
+    axs['B'].legend(loc = 'upper right', fontsize=legend_size)
+    axs['B'].set_xlabel('Time (ms)', fontsize=axis_size)
+    axs['B'].set_ylabel('Synapse adress', fontsize=axis_size)
+    axs['B'].set_title('Two different spiking motifs embedded in a raster plot', fontsize=title_size)
+    axs['B'].spines['top'].set_visible(False)
+    axs['B'].spines['right'].set_visible(False)
+    axs['B'].spines['left'].set_visible(False)
+    axs['B'].spines['bottom'].set_visible(False)
+    plt.show()
+    return fig, axs
