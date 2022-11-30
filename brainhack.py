@@ -381,7 +381,7 @@ def make_spiketrains_motif(nb_syn, noise_density, simtime, T, t_true, theta=0, f
         spike_trains.append(neo.SpikeTrain(spike_times, units='ms', t_stop=simtime))
     #st = neo.SpikeTrain([3, 4, 5], units='sec', t_stop=10.0)
 
-    return spike_trains
+    return spike_trains, (adress_pattern, time_pattern)
 
 def plot_input(aer_noise, aer_pattern):
     adress_noise, time_noise = aer_noise

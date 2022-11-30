@@ -77,6 +77,10 @@ such one could infer to which motifs the different spikes belong to:
 
 (see [2022-11-28_Generative-model-motifs.ipynb](2022-11-28_Generative-model-motifs.ipynb) and [2022-11-28_Generative-model_figure.ipynb](2022-11-28_Generative-model_figure.ipynb))
 
+### Generate synthetic spiking motifs
+
+![](./figures/synthetic_patterns.pdf.png)
+
 ## practical informations
 
 ### Link to project repository/sources
