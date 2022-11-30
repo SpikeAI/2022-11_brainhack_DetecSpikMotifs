@@ -48,9 +48,65 @@ SPADE achieves to detect those synchronous pattern:
 
 ![](./figures/raster_plot_with_spade_patterns.png)
 
+
 ### Generate synthetic spiking motifs
 
-![](./figures/synthetic_patterns.pdf.png)
+However, SPADE can **not** detect easily more complex polychronous pattern like:
+
+![](./figures/raster_plot_linearpattern.png)
+
+or 
+
+![](./figures/synthetic_patterns.png)
+
+### more motifs...
+
+In the future, one goal is to understand a raster plot:
+
+![](./figures/figure_motif_before.png)
+
+as a combination of different motifs 
+
+![](./figures/figure_motifs.png)
+
+which are defined by a raster plot of motifs:
+
+![](./figures/figure_raster_motifs.png)
+
+such one could infer to which motifs the different spikes belong to:
+
+![](./figures/figure_motif_after.png)
+
+(see [2022-11-28_Generative-model-motifs.ipynb](2022-11-28_Generative-model-motifs.ipynb) and [2022-11-28_Generative-model_figure.ipynb](2022-11-28_Generative-model_figure.ipynb))
+
+
+## results
+
+### learning about SPADE
+
+From [2022-11-28_SPADE_tutorial.ipynb](2022-11-28_SPADE_tutorial.ipynb), we learned to use SPADE.
+
+A synthetic raster where we wish to detect synchronous patterns:
+
+![](./figures/raster_plot_for_spade_permute.png)
+
+The same data with the synchronous data in the bottom:
+
+![](./figures/raster_plot_for_spade.png)
+
+SPADE achieves to detect those synchronous pattern:
+
+![](./figures/raster_plot_with_spade_patterns.png)
+
+### Generate synthetic spiking motifs
+
+However, SPADE can **not** detect easily more complex polychronous pattern like:
+
+![](./figures/raster_plot_linearpattern.png)
+
+or 
+
+![](./figures/synthetic_patterns.png)
 
 ### Test of SPADE on those motifs
 We can test the pattern detection of SPADE with one of those particular motifs for which the   
@@ -63,6 +119,28 @@ the algorithm with the parameters we used, is just searching for synchronous act
 Hence he considered that the motifs is synchronous, the red points that represents the detections   
 are aligned.
 ![](./figures/rastor_plot_spade_pattern_diag_motif.PNG)
+
+
+### more motifs...
+
+In the future, one goal is to understand a raster plot:
+
+![](./figures/figure_motif_before.png)
+
+as a combination of different motifs 
+
+![](./figures/figure_motifs.png)
+
+which are defined by a raster plot of motifs:
+
+![](./figures/figure_raster_motifs.png)
+
+such one could infer to which motifs the different spikes belong to:
+
+![](./figures/figure_motif_after.png)
+
+(see [2022-11-28_Generative-model-motifs.ipynb](2022-11-28_Generative-model-motifs.ipynb) and [2022-11-28_Generative-model_figure.ipynb](2022-11-28_Generative-model_figure.ipynb))
+
 
 ## practical informations
 
