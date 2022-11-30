@@ -28,6 +28,29 @@ figpath = None
 def printfig(fig, name, ext='pdf', figpath=figpath, dpi_exp=None, bbox='tight'):
     fig.savefig(os.path.join(figpath, name + '.' + ext), dpi = dpi_exp, bbox_inches=bbox, transparent=True)
 
+
+
+def ground_truth_spike_synchronous(spiketrains):
+    # Function to find the real position of the pattern
+    # Works only for synchronus activity, when ALL neurons 
+    # are activated at the same time
+    # INPUT : spike trains without the added noise
+    dict_spiketrains = {}
+    # remove the quantity (s) of the spiketrains array
+    for neurons in range(len(spiketrains)):
+        a = [float(x) for x in spiketrains[neurons]]
+        dict_spiketrains[str(neurons)] = a
+
+    list_keys=list(dict_spiketrains.keys())
+    common_spikes = set(dict_spiketrains.get(list_keys[0])).intersection(dict_spiketrains.get(list_keys[1]))
+    for key in list_keys[1:-1]:
+        num_key=int(key)
+        common_spikes = set(common_spikes).intersection(dict_spiketrains.get(str(num_key+1)))
+
+    return common_spikes
+
+
+
 # https://docs.python.org/3/library/dataclasses.html?highlight=dataclass#module-dataclasses
 from dataclasses import dataclass, asdict, field
 
