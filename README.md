@@ -17,8 +17,9 @@
 
 ### Brainhack Global 2022 Event
 
-Brainhack Marseille
-
+ * [Brainhack Marseille](https://brainhack-marseille.github.io)
+ * organized by the [Computational Neuroscience Center (CONECT)](https://conect-int.github.io/talk/2022-11-28-conect-at-the-int-brainhack/)
+ 
 ### Project Description
 
 The study of spatio-temporal correlated activity patterns is very active in several fields related to neuroscience, like machine learning in vision [(Muller Nat Rev Neurosci 2018)](https://pubmed.ncbi.nlm.nih.gov/29563572/) and neuronal representations and processing [(Shahidi Nat Neurosci 2019)](https://pubmed.ncbi.nlm.nih.gov/31110324/). **This project aims to develop a method for the automated detection of repeating spiking motifs, possibly noisy, in ongoing activity.** A diversity of formalizations and detection methods have been proposed and we will focus on several example measures for event/spike trains, to be compared on both synthetic and real data. 
