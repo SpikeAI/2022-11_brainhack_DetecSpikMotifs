@@ -19,6 +19,7 @@
 
  * [Brainhack Marseille](https://brainhack-marseille.github.io)
  * organized by the [Computational Neuroscience Center (CONECT)](https://conect-int.github.io/talk/2022-11-28-conect-at-the-int-brainhack/)
+ * supported by the [Polychronies](https://laurentperrinet.github.io/grant/polychronies/) grant
  
 ### Project Description
 
